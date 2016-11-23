@@ -6,9 +6,6 @@ var require = {
     'detector': {
       exports: 'Detector'
     },
-    'stats': {
-      exports: 'Stats'
-    },
     'tween': {
       exports: 'Tween'
     }
@@ -20,12 +17,7 @@ var require = {
     CSS3DRenderer: '../lib/CSS3DRenderer',
 
     detector: '../lib/Detector',
-    stats: '../lib/stats.min',
-    // Require.js plugins
-    // text: '../lib/text',
-    // shader: '../lib/shader',
-    // Where to look for shader files
-    // shaders: '../shaders'
+
     tween: '../lib/tween.min'
   }
 };

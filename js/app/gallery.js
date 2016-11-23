@@ -133,15 +133,17 @@ define(["three", "tween", "CSS3DRenderer", "TrackballControls"],
       renderer: new THREE.CSS3DRenderer(),
       scene: new THREE.Scene(),
       controls: {},
+      tweenCount: 0,
       updateSize: function () {
         gallery.camera.aspect = gallery.container.offsetWidth / gallery.container.offsetHeight;
         gallery.camera.updateProjectionMatrix();
         gallery.renderer.setSize(gallery.container.offsetWidth, gallery.container.offsetHeight);
 
-        gallery.render();
+        //gallery.render();
       },
       transform: function (targets, duration) {
         TWEEN.removeAll();
+        gallery.tweenCount = 0;
 
         for (var i = 0; i < gallery.objects.length; i++) {
 
@@ -154,6 +156,9 @@ define(["three", "tween", "CSS3DRenderer", "TrackballControls"],
               y: target.position.y,
               z: target.position.z
             }, Math.random() * duration + duration)
+            .onComplete(function () {
+              gallery.tweenCount--;
+            })
             .easing(TWEEN.Easing.Exponential.InOut)
             .start();
 
@@ -163,15 +168,52 @@ define(["three", "tween", "CSS3DRenderer", "TrackballControls"],
               y: target.rotation.y,
               z: target.rotation.z
             }, Math.random() * duration + duration)
+            .onComplete(function () {
+              gallery.tweenCount--;
+            })
             .easing(TWEEN.Easing.Exponential.InOut)
             .start();
 
+          gallery.tweenCount += 2;
         }
+      },
+      focus: function (target, duration) {
+        console.log(target.position);
 
-        new TWEEN.Tween(gallery)
-          .to({}, duration * 2)
-          .onUpdate(gallery.render)
-          .start();
+        if (gallery.tweenCount === 0) {
+          TWEEN.removeAll();
+
+          var newPos = target.position;
+          var vectorR = new THREE.Vector3(0, 0, 1);
+          var newRot = target.rotation;
+          vectorR.applyAxisAngle(new THREE.Vector3(1, 0, 0), newRot.x);
+          vectorR.applyAxisAngle(new THREE.Vector3(0, 1, 0), newRot.y);
+          vectorR.applyAxisAngle(new THREE.Vector3(0, 0, 1), newRot.z);
+
+          new TWEEN.Tween(gallery.camera.position)
+            .to({
+              x: newPos.x + 500 * vectorR.x,
+              y: newPos.y + 500 * vectorR.y,
+              z: newPos.z + 500 * vectorR.z
+            }, duration)
+            .onComplete(function () {
+              console.log(gallery.camera.position);
+            })
+            .easing(TWEEN.Easing.Exponential.InOut)
+            .start();
+
+          new TWEEN.Tween(gallery.camera.rotation)
+            .to({
+              x: newRot.x,
+              y: newRot.y,
+              z: newRot.z
+            }, duration)
+            .onComplete(function () {
+              console.log(gallery.camera.rotation);
+            })
+            .easing(TWEEN.Easing.Exponential.InOut)
+            .start();
+        }
       },
       init: function () {
 
@@ -188,43 +230,32 @@ define(["three", "tween", "CSS3DRenderer", "TrackballControls"],
         gallery.controls.zoomSpeed = 0.2;
         gallery.controls.enableDamping = true;
         gallery.controls.dynamicDampingFactor = 0.4;
-        gallery.controls.minDistance = 500;
-        gallery.controls.maxDistance = 6000;
-        gallery.controls.addEventListener('change', gallery.render);
+        gallery.controls.minDistance = 0;
+        gallery.controls.maxDistance = 7000;
 
         // table
         for (var i = 0; i < gallery.table.length; i += 5) {
 
           var element = document.createElement('div');
           element.className = 'element';
+          element.id = i / 5;
           element.style.backgroundColor = 'rgba(0,127,127,' + (Math.random() * 0.5 + 0.25) + ')';
-
-          // var number = document.createElement('div');
-          // number.className = 'number';
-          // number.textContent = (i / 5) + 1;
-          // element.appendChild(number);
-
-          // var symbol = document.createElement('div');
-          // symbol.className = 'symbol';
-          // symbol.textContent = gallery.table[i];
-          // element.appendChild(symbol);
-
-          // var details = document.createElement('div');
-          // details.className = 'details';
-          // details.innerHTML = gallery.table[i + 1] + '<br>' + gallery.table[i + 2];
-          // element.appendChild(details);
 
           var img = document.createElement('img');
           img.src = 'images/p' + (((i / 5) + 1) % 8 + 1) + '.jpg';
           element.appendChild(img);
 
-          var object = new THREE.CSS3DObject(element);
-          object.position.x = Math.random() * 4000 - 2000;
-          object.position.y = Math.random() * 4000 - 2000;
-          object.position.z = Math.random() * 4000 - 2000;
-          gallery.scene.add(object);
+          var cssObject = new THREE.CSS3DObject(element);
+          cssObject.position.x = Math.random() * 4000 - 2000;
+          cssObject.position.y = Math.random() * 4000 - 2000;
+          cssObject.position.z = Math.random() * 4000 - 2000;
+          element.addEventListener('click', function (event) {
+            gallery.focus(gallery.objects[event.currentTarget.id], 2000);
+          });
 
-          gallery.objects.push(object);
+          gallery.scene.add(cssObject);
+
+          gallery.objects.push(cssObject);
 
           var object = new THREE.Object3D();
           object.position.x = (gallery.table[i + 3] * 140) - 1330;
@@ -334,6 +365,7 @@ define(["three", "tween", "CSS3DRenderer", "TrackballControls"],
         gallery.controls.update();
 
         TWEEN.update();
+        gallery.render();
       },
       render: function () {
         gallery.renderer.render(gallery.scene, gallery.camera);
