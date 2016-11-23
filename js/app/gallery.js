@@ -123,7 +123,12 @@ define(["three", "tween", "CSS3DRenderer", "TrackballControls"],
         "Uuo", "Ununoctium", "(294)", 18, 7
       ],
       objects: [],
-      targets: { table: [], sphere: [], helix: [], grid: [] },
+      targets: {
+        table: [],
+        sphere: [],
+        helix: [],
+        grid: []
+      },
       camera: {},
       renderer: new THREE.CSS3DRenderer(),
       scene: new THREE.Scene(),
@@ -144,12 +149,20 @@ define(["three", "tween", "CSS3DRenderer", "TrackballControls"],
           var target = targets[i];
 
           new TWEEN.Tween(object.position)
-            .to({ x: target.position.x, y: target.position.y, z: target.position.z }, Math.random() * duration + duration)
+            .to({
+              x: target.position.x,
+              y: target.position.y,
+              z: target.position.z
+            }, Math.random() * duration + duration)
             .easing(TWEEN.Easing.Exponential.InOut)
             .start();
 
           new TWEEN.Tween(object.rotation)
-            .to({ x: target.rotation.x, y: target.rotation.y, z: target.rotation.z }, Math.random() * duration + duration)
+            .to({
+              x: target.rotation.x,
+              y: target.rotation.y,
+              z: target.rotation.z
+            }, Math.random() * duration + duration)
             .easing(TWEEN.Easing.Exponential.InOut)
             .start();
 
@@ -163,7 +176,7 @@ define(["three", "tween", "CSS3DRenderer", "TrackballControls"],
       init: function () {
 
         gallery.camera = new THREE.PerspectiveCamera(40, gallery.container.offsetWidth / gallery.container.offsetHeight, 1, 10000);
-        gallery.camera.position.z = 3000;
+        gallery.camera.position.z = 4000;
 
         gallery.container.innerHTML = "";
         gallery.container.appendChild(gallery.renderer.domElement);
@@ -172,9 +185,9 @@ define(["three", "tween", "CSS3DRenderer", "TrackballControls"],
 
         gallery.controls = new THREE.TrackballControls(gallery.camera, gallery.renderer.domElement);
         gallery.controls.rotateSpeed = 1.0;
-        gallery.controls.zoomSpeed = 0.2
-        gallery.controls.enableDamping = true;;
-        gallery.controls.dynamicDampingFactor = 0.5;
+        gallery.controls.zoomSpeed = 0.2;
+        gallery.controls.enableDamping = true;
+        gallery.controls.dynamicDampingFactor = 0.4;
         gallery.controls.minDistance = 500;
         gallery.controls.maxDistance = 6000;
         gallery.controls.addEventListener('change', gallery.render);
@@ -186,20 +199,24 @@ define(["three", "tween", "CSS3DRenderer", "TrackballControls"],
           element.className = 'element';
           element.style.backgroundColor = 'rgba(0,127,127,' + (Math.random() * 0.5 + 0.25) + ')';
 
-          var number = document.createElement('div');
-          number.className = 'number';
-          number.textContent = (i / 5) + 1;
-          element.appendChild(number);
+          // var number = document.createElement('div');
+          // number.className = 'number';
+          // number.textContent = (i / 5) + 1;
+          // element.appendChild(number);
 
-          var symbol = document.createElement('div');
-          symbol.className = 'symbol';
-          symbol.textContent = gallery.table[i];
-          element.appendChild(symbol);
+          // var symbol = document.createElement('div');
+          // symbol.className = 'symbol';
+          // symbol.textContent = gallery.table[i];
+          // element.appendChild(symbol);
 
-          var details = document.createElement('div');
-          details.className = 'details';
-          details.innerHTML = gallery.table[i + 1] + '<br>' + gallery.table[i + 2];
-          element.appendChild(details);
+          // var details = document.createElement('div');
+          // details.className = 'details';
+          // details.innerHTML = gallery.table[i + 1] + '<br>' + gallery.table[i + 2];
+          // element.appendChild(details);
+
+          var img = document.createElement('img');
+          img.src = 'images/p' + (((i / 5) + 1) % 8 + 1) + '.jpg';
+          element.appendChild(img);
 
           var object = new THREE.CSS3DObject(element);
           object.position.x = Math.random() * 4000 - 2000;
@@ -211,7 +228,7 @@ define(["three", "tween", "CSS3DRenderer", "TrackballControls"],
 
           var object = new THREE.Object3D();
           object.position.x = (gallery.table[i + 3] * 140) - 1330;
-          object.position.y = - (gallery.table[i + 4] * 180) + 990;
+          object.position.y = -(gallery.table[i + 4] * 180) + 990;
 
           gallery.targets.table.push(object);
 
@@ -247,7 +264,7 @@ define(["three", "tween", "CSS3DRenderer", "TrackballControls"],
           var object = new THREE.Object3D();
 
           object.position.x = 900 * Math.sin(phi);
-          object.position.y = - (i * 8) + 450;
+          object.position.y = -(i * 8) + 450;
           object.position.z = 900 * Math.cos(phi);
 
           vector.x = object.position.x * 2;
@@ -266,7 +283,7 @@ define(["three", "tween", "CSS3DRenderer", "TrackballControls"],
           var object = new THREE.Object3D();
 
           object.position.x = ((i % 5) * 400) - 800;
-          object.position.y = (- (Math.floor(i / 5) % 5) * 400) + 800;
+          object.position.y = (-(Math.floor(i / 5) % 5) * 400) + 800;
           object.position.z = (Math.floor(i / 25)) * 1000 - 2000;
 
           gallery.targets.grid.push(object);
@@ -280,24 +297,31 @@ define(["three", "tween", "CSS3DRenderer", "TrackballControls"],
 
         }, false);
 
-        var button = document.getElementById('sphere');
+        button = document.getElementById('sphere');
         button.addEventListener('click', function (event) {
 
           gallery.transform(gallery.targets.sphere, 2000);
 
         }, false);
 
-        var button = document.getElementById('helix');
+        button = document.getElementById('helix');
         button.addEventListener('click', function (event) {
 
           gallery.transform(gallery.targets.helix, 2000);
 
         }, false);
 
-        var button = document.getElementById('grid');
+        button = document.getElementById('grid');
         button.addEventListener('click', function (event) {
 
           gallery.transform(gallery.targets.grid, 2000);
+
+        }, false);
+
+        button = document.getElementById('reset');
+        button.addEventListener('click', function (event) {
+
+          gallery.controls.reset();
 
         }, false);
 
