@@ -138,8 +138,6 @@ define(["three", "tween", "CSS3DRenderer", "TrackballControls"],
         gallery.camera.aspect = gallery.container.offsetWidth / gallery.container.offsetHeight;
         gallery.camera.updateProjectionMatrix();
         gallery.renderer.setSize(gallery.container.offsetWidth, gallery.container.offsetHeight);
-
-        //gallery.render();
       },
       transform: function (targets, duration) {
         TWEEN.removeAll();
@@ -196,9 +194,6 @@ define(["three", "tween", "CSS3DRenderer", "TrackballControls"],
               y: newPos.y + 500 * vectorR.y,
               z: newPos.z + 500 * vectorR.z
             }, duration)
-            .onComplete(function () {
-              console.log(gallery.camera.position);
-            })
             .easing(TWEEN.Easing.Exponential.InOut)
             .start();
 
@@ -208,9 +203,6 @@ define(["three", "tween", "CSS3DRenderer", "TrackballControls"],
               y: newRot.y,
               z: newRot.z
             }, duration)
-            .onComplete(function () {
-              console.log(gallery.camera.rotation);
-            })
             .easing(TWEEN.Easing.Exponential.InOut)
             .start();
         }
@@ -363,7 +355,6 @@ define(["three", "tween", "CSS3DRenderer", "TrackballControls"],
       animate: function () {
         window.requestAnimationFrame(gallery.animate);
         gallery.controls.update();
-
         TWEEN.update();
         gallery.render();
       },
