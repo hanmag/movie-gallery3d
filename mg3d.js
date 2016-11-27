@@ -10,6 +10,8 @@ var path = require('path');
 var fs = require('fs');
 var mkdirp = require('mkdirp');
 
+var NSWS = require('./node-static-webserver');
+
 // global var
 
 const baseUrl = 'https://movie.douban.com/nowplaying/beijing/';
@@ -58,7 +60,10 @@ pageExist(function (err, res) {
                 return process.exit(1);
             }
             console.log('抓取完毕'.green.bold);
-            return process.exit(0); // 不等待未完成的异步请求，直接结束进程
+
+            var server = new NSWS(__dirname, 3080, '127.0.0.1');
+            console.log('请访问：%s'.green, 'http://127.0.0.1:3080/');
+            //return process.exit(0); // 不等待未完成的异步请求，直接结束进程
         });
 });
 
