@@ -121,12 +121,12 @@ function parseLinks(next) {
     }
 
     let metaFilePath = path.join(output, 'meta.json');
-    fs.writeFile(metaFilePath, JSON.stringify(titles),
+    fs.writeFile(metaFilePath, JSON.stringify(links),
         function (err) {
             if (err) {
                 throw err;
             }
-            console.log('正处理以下影片...\n'.green + titles.toString().yellow);
+            console.log('正处理以下影片...\n'.green + titles.join('\r\n').yellow);
             next(null, links);
         });
 }
@@ -149,24 +149,5 @@ function getItems(links, next) {
 }
 
 function getItemPage(link, index, callback) {
-    let title = link.title;
-    // let coverFilePath = path.join(output, title + '.jpg');
-    let magnetFilePath = path.join(output, title + '.json');
-
-    try {
-        // fs.accessSync(coverFilePath, fs.F_OK);
-        fs.accessSync(magnetFilePath, fs.F_OK);
-        console.log(('[' + title + ']').yellow.bold.inverse + ' ' + 'Alreday fetched, SKIP!'.yellow);
-        return callback();
-    } catch (e) {
-        fs.writeFile(magnetFilePath, JSON.stringify(link),
-            function (err) {
-                if (err) {
-                    throw err;
-                }
-                console.log(('[' + title + ']').green.bold.inverse);
-                //getItemCover(link, meta, done);
-                return callback();
-            });
-    }
+    return callback();
 }
