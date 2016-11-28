@@ -30,7 +30,6 @@ NodeStaticWebServer.prototype._onCreateServer = function (request, response) {
     var uri = url.parse(request.url).pathname,
         filename = path.join(this._contentPath, uri);
 
-    console.log('访问：%s', filename);
     if (host.substr(0, 4).toLowerCase() === 'www.') {
         this._httpRedirect(response, 'http://' + host.substr(4));
         return;
