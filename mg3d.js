@@ -107,7 +107,7 @@ function parseLinks(next) {
 
     function link_movie_handler() {
         let title = $(this).attr('data-title');
-        let image = $('img').attr('src');
+        let image = $('img', this).attr('src');
 
         titles.push(title);
         links.push({
