@@ -7,36 +7,33 @@
 	<!-- Tell IE to use the latest, best version. -->
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<link href="css/style.css" rel="stylesheet">
-
 </head>
 
 <body>
 	<h1>豆瓣新片预览</h1>
+	<a href="https://github.com/hanmag/movie-gallery3d">
+		<img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png"
+						alt="Fork me on GitHub">
+	</a>
 	<!-- Canvas to render on -->
 	<div id="threejs-container">Loading...</div>
-
 	<div id="options">
 		<div id="options-content">
 		</div>
 	</div>
-
 	<div class="header" id="header-top">
 		<div class="header-left-section">标题头描述</div>
 		<div class="header-right-section">OIA | 012</div>
 	</div>
-
 	<div class="header" id="header-bottom">
 		<div class="header-left-section">标题尾描述</div>
 		<div class="header-right-section">SYS | 012</div>
 	</div>
-
 	<div id="thumbprint">
 		<img src="images/thumbprint.png" />
 	</div>
-    
 	<div class="header-animator" id="header-animator-inside"></div>
 	<div class="header-animator" id="header-animator-outside"></div>
-
 	<div id="menu">
 		<button id="table">TABLE</button>
 		<button id="sphere">SPHERE</button>
@@ -44,7 +41,6 @@
 		<button id="grid">GRID</button>
 		<button id="reset">RESET</button>
 	</div>
-
 	<script src="js/config.js"></script>
 	<script data-main="../main" src="js/require.js"></script>
 </body>

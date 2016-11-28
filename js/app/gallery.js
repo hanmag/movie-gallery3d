@@ -225,8 +225,8 @@ define(["three", "tween", "CSS3DRenderer", "TrackballControls", "jQuery"],
           for (var i = 0; i < objects.length; i++) {
             var object = new THREE.Object3D();
 
-            object.position.x = ((i % 9) * 400) - 1600;
-            object.position.y = -(Math.floor(i / 9) * 400) + 800;
+            object.position.x = ((i % 9) * 300) - 1200;
+            object.position.y = -(Math.floor(i / 9) * 300) + 800;
 
             gallery.targets.table.push(object);
           }
@@ -277,8 +277,8 @@ define(["three", "tween", "CSS3DRenderer", "TrackballControls", "jQuery"],
           for (var i = 0; i < objects.length; i++) {
             var object = new THREE.Object3D();
 
-            object.position.x = ((i % 3) * 400) - 400;
-            object.position.y = (-(Math.floor(i / 3) % 3) * 400) + 800;
+            object.position.x = ((i % 3) * 300) - 300;
+            object.position.y = (-(Math.floor(i / 3) % 3) * 300) + 800;
             object.position.z = -(Math.floor(i / 9)) * 1000 + 1500;
 
             gallery.targets.grid.push(object);
