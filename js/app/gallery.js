@@ -77,9 +77,9 @@ define(["three", "tween", "CSS3DRenderer", "TrackballControls", "jQuery"],
 
           new TWEEN.Tween(gallery.camera.position)
             .to({
-              x: newPos.x + 500 * vectorR.x,
-              y: newPos.y + 500 * vectorR.y,
-              z: newPos.z + 500 * vectorR.z
+              x: newPos.x + 1000 * vectorR.x,
+              y: newPos.y + 1000 * vectorR.y,
+              z: newPos.z + 1000 * vectorR.z
             }, duration)
             .easing(TWEEN.Easing.Exponential.InOut)
             .start();
@@ -183,6 +183,7 @@ define(["three", "tween", "CSS3DRenderer", "TrackballControls", "jQuery"],
             var element = document.createElement('div');
             element.className = 'element';
             element.id = 'element-' + i;
+            element.style.backgroundColor = 'rgba(0,127,127,' + (Math.random() * 0.5 + 0.25) + ')';
 
             var img = document.createElement('img');
             img.src = objects[i].img;
@@ -256,12 +257,12 @@ define(["three", "tween", "CSS3DRenderer", "TrackballControls", "jQuery"],
           var vector = new THREE.Vector3();
           for (var i = 0, l = objects.length; i < l; i++) {
 
-            var phi = i * 0.175 + Math.PI;
+            var phi = i * 0.0666666 * Math.PI + Math.PI;
 
             var object = new THREE.Object3D();
-            object.position.x = 900 * Math.sin(phi);
+            object.position.x = 650 * Math.sin(phi);
             object.position.y = -(i * 8) + 450;
-            object.position.z = 900 * Math.cos(phi);
+            object.position.z = 1300 * Math.cos(phi);
 
             vector.x = object.position.x * 2;
             vector.y = object.position.y;
