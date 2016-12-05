@@ -40,7 +40,7 @@
 
   function initScene() {
     camera = new THREE.PerspectiveCamera(40, container.offsetWidth / container.offsetHeight, 1, 10000);
-    camera.position.z = 3000;
+    camera.position.z = 1800;
 
     updateSize();
     window.addEventListener('resize', updateSize, false);
@@ -68,9 +68,9 @@
       });
 
       var cssObject = new THREE.CSS3DObject(element);
-      cssObject.position.x = Math.random() * 4000 - 2000;
-      cssObject.position.y = Math.random() * 4000 - 2000;
-      cssObject.position.z = Math.random() * 4000 - 2000;
+      cssObject.position.x = Math.random() * 1000 - 500;
+      cssObject.position.y = Math.random() * 1000 - 500;
+      cssObject.position.z = Math.random() * 1000 - 1000;
 
       scene.add(cssObject);
       objects.push(cssObject);
@@ -122,7 +122,7 @@
 
       var object = new THREE.Object3D();
       object.position.x = 700 * Math.sin(phi);
-      object.position.y = 0;
+      object.position.y = -30;
       object.position.z = 700 * Math.cos(phi);
 
       vector.x = object.position.x * 2;

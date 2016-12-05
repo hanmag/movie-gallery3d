@@ -36,8 +36,20 @@ h1 {
 }
 
 #threejs-container {
-	height: 100%;
+	position: absolute;
+	top: 0;
+	left: 0;
+	height: calc(100% - 250px);
+	width: 100%;
 	user-select: none;
+}
+
+#detail {
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	width: 100%;
+	height: 250px;
 }
 
 .element {
