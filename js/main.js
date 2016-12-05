@@ -12,6 +12,8 @@
 
   var tweenCount;
 
+  var currentTarget;
+
   // init three.js scene
   initScene();
 
@@ -54,6 +56,11 @@
       element.className = 'element';
       element.id = 'el' + i;
 
+      if (currentTarget === undefined) {
+        element.className = 'element selected';
+        currentTarget = element;
+      }
+
       var img = document.createElement('img');
       img.src = movies[i].img;
       element.appendChild(img);
@@ -63,7 +70,11 @@
         event.preventDefault();
         event.stopPropagation();
 
-        restructLayout(parseInt(event.currentTarget.id.substring(2)));
+        if (currentTarget !== undefined)
+          $('#' + currentTarget.id).removeClass("selected").addClass("unselected");
+        currentTarget = event.currentTarget;
+
+        restructLayout(parseInt(currentTarget.id.substring(2)));
         transform(1500);
       });
 
@@ -80,6 +91,8 @@
   function transform(duration) {
     TWEEN.removeAll();
     tweenCount = 0;
+
+    $('#' + currentTarget.id).removeClass("unselected").addClass("selected");
 
     for (var i = 0; i < objects.length; i++) {
 
@@ -104,13 +117,10 @@
           y: target.rotation.y,
           z: target.rotation.z
         }, Math.random() * duration)
-        .onComplete(function () {
-          tweenCount--;
-        })
         .easing(TWEEN.Easing.Exponential.InOut)
         .start();
 
-      tweenCount += 2;
+      tweenCount++;
     }
   }
 
@@ -122,7 +132,7 @@
 
       var object = new THREE.Object3D();
       object.position.x = 700 * Math.sin(phi);
-      object.position.y = -30;
+      object.position.y = i === 0 ? -20 : -30;
       object.position.z = 700 * Math.cos(phi);
 
       vector.x = object.position.x * 2;

@@ -57,10 +57,46 @@ h1 {
 	height: 200px;
 	box-shadow: 0px 0px 12px rgba(0, 255, 255, 0.5);
 	border: 1px solid rgba(127, 255, 255, 0.25);
-	text-align: center;
+	background-color: rgba(127, 255, 255, 0.05);
 	cursor: default;
-	animation: flash 1s ease-out;
-	animation-iteration-count: 0;
+}
+
+.selected {
+	-webkit-animation-name: "scaleup";
+	-webkit-animation-duration: 1s;
+	-webkit-animation-iteration-count: 1;
+	-webkit-animation-fill-mode: forwards;
+	-webkit-animation-timing-function: ease-in-out;
+}
+
+.unselected {
+	-webkit-animation-name: "scaledown";
+	-webkit-animation-duration: 1s;
+	-webkit-animation-iteration-count: 1;
+	-webkit-animation-fill-mode: forwards;
+	-webkit-animation-timing-function: ease-in-out;
+}
+
+@keyframes scaleup {
+	from {
+		width: 150px;
+		height: 200px;
+	}
+	to {
+		width: 180px;
+		height: 240px;
+	}
+}
+
+@keyframes scaledown {
+	from {
+		width: 180px;
+		height: 240px;
+	}
+	to {
+		width: 150px;
+		height: 200px;
+	}
 }
 
 .element:hover {
@@ -69,9 +105,9 @@ h1 {
 }
 
 .element img {
-	margin: 6px 0 0 0;
+	margin: 4px 0 0 0;
 	padding: 0;
-	width: 90%;
-	height: 90%;
-	opacity: 0.75;
+	width: 95%;
+	height: 95%;
+	opacity: 0.9;
 }
