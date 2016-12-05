@@ -1,21 +1,8 @@
-/* fonts */
-
-
-/*@font-face {
-  font-family: Hamburger;
-  src: url(../font/Hamburger.ttf);
-}*/
-
-
-/* base styles */
-
 html {
-	font-family: "Hamburger", "Helvetica Neue", Helvetica, Arial, sans-serif;
 	font-size: 24px;
 	line-height: 1.2;
 	color: white;
 	text-align: center;
-	background: #113;
 	background: linear-gradient(45deg, #113, #101);
 	height: 100%;
 }
@@ -24,26 +11,33 @@ body {
 	margin: 0;
 	height: 100%;
 	overflow: hidden;
-	user-select: none;
 }
 
 h1 {
 	color: #fed;
 	text-shadow: black 5px 5px;
 	font-size: 40px;
-	padding: 2px;
-	margin: 0;
+	letter-spacing: 2px;
+	margin: auto;
+	position: absolute;
+	top: 4px;
+	left: 0;
+	bottom: 0;
+	right: 0;
+	user-select: none;
+}
+
+#github {
+	position: absolute;
+	top: 0;
+	right: 0;
+	border: 0;
+	user-select: none;
 }
 
 #threejs-container {
 	height: 100%;
-}
-
-#menu {
-	position: absolute;
-	right: 40px;
-	bottom: 20px;
-	text-align: center;
+	user-select: none;
 }
 
 .element {
@@ -67,168 +61,5 @@ h1 {
 	padding: 0;
 	width: 90%;
 	height: 90%;
-}
-
-.element .bubble {
-	position: absolute;
-	right: -10px;
-	top: -10px;
-	width: 28px;
-	height: 28px;
-	border-radius: 14px;
-	background-color: rgb(236, 32, 32);
-	/*animation: flash 1s ease-out;
-    animation-iteration-count: infinite;*/
-}
-
-@keyframes flash {
-	0% {
-		background-color: rgb(236, 32, 32);
-	}
-	50% {
-		background-color: rgb(216, 168, 0);
-	}
-	100% {
-		background-color: rgb(236, 32, 32);
-	}
-}
-
-.element .object-description {
-	position: absolute;
-	left: 0px;
-	bottom: 0px;
-	background-color: rgba(0, 196, 196, 0.85);
-	width: 100%;
-	height: 50px;
-	animation: flash 1s ease-out;
-	animation-iteration-count: 0;
-}
-
-.element .object-name {
-	position: absolute;
-	left: 6px;
-	top: 4px;
-	line-height: 20px;
-}
-
-.element .object-nation {
-	position: absolute;
-	right: 6px;
-	top: 4px;
-	font-size: 12px;
-	line-height: 20px;
-}
-
-.element .object-phone {
-	position: absolute;
-	left: 6px;
-	bottom: 4px;
-	font-size: 12px;
-	line-height: 20px;
-}
-
-button {
-	color: rgba(127, 255, 255, 0.75);
-	background: transparent;
-	outline: 1px solid rgba(127, 255, 255, 0.75);
-	border: 0px;
-	padding: 5px 10px;
-	cursor: pointer;
-}
-
-button:hover {
-	background-color: rgba(0, 255, 255, 0.5);
-}
-
-button:active {
-	color: #000000;
-	background-color: rgba(0, 255, 255, 0.75);
-}
-
-#thumbprint {
-	position: absolute;
-	bottom: 10px;
-	left: 10px;
-	cursor: pointer;
-	opacity: 0;
-	animation: pulsate 5s ease-out;
-	animation-iteration-count: 10;
-}
-
-@keyframes pulsate {
-	0% {
-		opacity: 0.3;
-	}
-	50% {
-		opacity: 1.0;
-	}
-	100% {
-		opacity: 0.3;
-	}
-}
-
-#options {
-	position: absolute;
-	top: 0;
-	left: -220px;
-	bottom: 0;
-	overflow: hidden;
-	margin: 0;
-	width: 300px;
-	background-color: rgba(8, 8, 24, .5);
-	border-right: 2px solid #6fc0ba;
-	visibility: hidden;
-}
-
-#options-content {
-	opacity: 0;
-	padding-left: 10px;
-}
-
-.header {
-	border-top: 1px solid #1d4c53;
-	border-bottom: 1px solid #1d4c53;
-	padding: 2px 0;
-	visibility: hidden;
-	left: 25px;
-	width: 250px;
-	font-size: 6pt;
-}
-
-.header-left-section {
-	float: left;
-	width: 60%;
-	background-color: rgba(8, 8, 24, 0.5);
-	margin-left: -5px;
-	padding: 0 8px;
-}
-
-.header-right-section {
-	float: right;
-	width: 30%;
-	background-color: rgba(8, 8, 24, 0.5);
-	text-align: right;
-	margin-right: -5px;
-	padding: 0 8px;
-}
-
-#header-bottom {
-	position: absolute;
-	bottom: 100px;
-}
-
-#header-top {
-	position: absolute;
-	top: 50px;
-}
-
-.header-animator {
-	position: absolute;
-	top: 300px;
-	left: 25px;
-	width: 250px;
-	height: 2px;
-	border-top: 1px solid #1d4c53;
-	border-bottom: 1px solid #1d4c53;
-	visibility: hidden;
+	opacity: 0.75;
 }

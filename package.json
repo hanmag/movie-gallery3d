@@ -1,19 +1,13 @@
 {
     "name": "movie-gallery3d",
-    "version": "0.0.1",
+    "version": "0.0.2",
     "description": "",
-    "main": "mg3d.js",
+    "main": "gallery.js",
     "repository": {
         "type": "git",
         "url": "https://github.com/hanmag/movie-gallery3d.git"
     },
-    "scripts": {
-        "test": "echo \"Error: no test specified\" && exit 1"
-    },
     "author": "hanmag <wangjue1199@163.com>",
-    "bin": {
-        "jav": "mg3d.js"
-    },
     "license": "MIT",
     "dependencies": {
         "async": "^1.5.0",
