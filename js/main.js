@@ -56,11 +56,6 @@
       element.className = 'element';
       element.id = 'el' + i;
 
-      if (currentTarget === undefined) {
-        element.className = 'element selected';
-        currentTarget = element;
-      }
-
       var img = document.createElement('img');
       img.src = movies[i].img;
       element.appendChild(img);
@@ -70,11 +65,7 @@
         event.preventDefault();
         event.stopPropagation();
 
-        if (currentTarget !== undefined)
-          $('#' + currentTarget.id).removeClass("selected").addClass("unselected");
-        currentTarget = event.currentTarget;
-
-        restructLayout(parseInt(currentTarget.id.substring(2)));
+        sortMovies(event.currentTarget);
         transform(1500);
       });
 
@@ -92,7 +83,7 @@
     TWEEN.removeAll();
     tweenCount = 0;
 
-    $('#' + currentTarget.id).removeClass("unselected").addClass("selected");
+    currentTarget.className = 'element selected';
 
     for (var i = 0; i < objects.length; i++) {
 
@@ -128,11 +119,11 @@
     var vector = new THREE.Vector3();
     for (var i = 0, l = objects.length; i < l; i++) {
 
-      var phi = (2 * i * Math.PI) / l;
+      var phi = i === 0 ? 0 : (2 * (i + 0.25) * Math.PI) / (l + 0.5);
 
       var object = new THREE.Object3D();
       object.position.x = 700 * Math.sin(phi);
-      object.position.y = i === 0 ? -20 : -30;
+      object.position.y = i === 0 ? -15 : -30;
       object.position.z = 700 * Math.cos(phi);
 
       vector.x = object.position.x * 2;
@@ -143,9 +134,17 @@
 
       targets.push(object);
     }
+
+    sortMovies(objects[0].element);
   }
 
-  function restructLayout(index) {
+  function sortMovies(target) {
+    if (currentTarget !== undefined)
+      currentTarget.className = 'element unselected';
+    currentTarget = target;
+
+    var index = parseInt(currentTarget.id.substring(2))
+
     var l = objects.length;
     objects.sort(function (a, b) {
       var aIndex = parseInt(a.element.id.substring(2));
