@@ -143,6 +143,7 @@ function getItems(links, next) {
                 }
                 throw err;
             }
+            // 暂未做任何处理
             console.log('===== 处理完毕 ====='.green);
             return next();
         });
