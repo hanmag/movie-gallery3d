@@ -61,8 +61,8 @@ pageExist(function (err, res) {
             }
             console.log('抓取完毕'.green.bold);
 
-            var server = new NSWS(__dirname, 3080, '127.0.0.1');
-            console.log('请访问：%s'.green, 'http://127.0.0.1:3080/');
+            var server = new NSWS(__dirname, 3000, 'localhost');
+            console.log('请访问：%s'.green, 'http://localhost:3000/');
             //return process.exit(0); // 不等待未完成的异步请求，直接结束进程
         });
 });
@@ -100,7 +100,8 @@ function pageExist(callback) {
 function parseLinks(next) {
     let $ = cheerio.load(currentPageHtml);
     let links = [],
-        titles = [];
+        titles = [],
+        meta = {};
     let totalCountCurPage = $('li.list-item', '#nowplaying').length;
 
     $('li.list-item', '#nowplaying').each(link_movie_handler);
@@ -120,8 +121,11 @@ function parseLinks(next) {
         });
     }
 
+    meta.time = new Date().toLocaleDateString();
+    meta.movies = links
+
     let metaFilePath = path.join(output, 'meta.json');
-    fs.writeFile(metaFilePath, JSON.stringify(links),
+    fs.writeFile(metaFilePath, JSON.stringify(meta),
         function (err) {
             if (err) {
                 throw err;
