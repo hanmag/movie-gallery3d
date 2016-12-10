@@ -23,7 +23,8 @@
   $.getJSON("movies/meta.json", function (data) {
     container.innerHTML = "";
 
-    setData(data);
+    $('#date').text(data.time);
+    setData(data.movies);
     initLayout();
 
     // Start the gallery
