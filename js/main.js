@@ -4,7 +4,8 @@
   }
 
   var objects = [],
-    targets = [];
+    targets = [],
+    movies = [];
 
   var camera, scene = new THREE.Scene(),
     renderer = new THREE.CSS3DRenderer(),
@@ -23,8 +24,9 @@
   $.getJSON("movies/meta.json", function (data) {
     container.innerHTML = "";
 
+    movies = data.movies;
     $('#date').text(data.time);
-    setData(data.movies);
+    setData(movies);
     initLayout();
 
     // Start the gallery
@@ -156,11 +158,23 @@
 
       return aValue - bValue;
     });
+
+    setInfo(movies[index]);
   }
 
   function animate() {
     window.requestAnimationFrame(animate);
     TWEEN.update();
     renderer.render(scene, camera);
+  }
+
+  function setInfo(movie) {
+    $("#title").text(movie.title);
+    $("#director").text(movie.info["导演"]);
+    $("#writer").text(movie.info["编剧"]);
+    $("#actors").text(movie.info["主演"]);
+    $("#genre").text(movie.info["类型"].join(' / '));
+    $("#country").text(movie.info["制片国家/地区"]);
+    $("#runtime").text(movie.info["片长"]);
   }
 })();

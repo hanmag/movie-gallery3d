@@ -136,11 +136,34 @@ small {
 	color: #ddd;
 }
 
+::-webkit-scrollbar {
+	width: 0.5px;
+}
+
+::-webkit-scrollbar-track {
+	border-radius: 2px;
+	-webkit-border-radius: 2px;
+}
+
+::-webkit-scrollbar-thumb {
+	background: #555;
+}
+
+::-webkit-scrollbar-thumb:window-inactive {
+	background: #555;
+}
+
 #properties {
-	float: left;
-	margin: 0 24px;
-	font-size: 12pt;
+	position: absolute;
+	width: 300px;
+	margin: 0 0 0 24px;
+	padding-right: 12px;
+	top: 60px;
+	bottom: 0;
+	font-size: 11pt;
 	color: #ccc;
+	OVERFLOW-X: hidden;
+	OVERFLOW-Y: scroll;
 }
 
 #properties p {
@@ -148,11 +171,15 @@ small {
 	text-align: left;
 }
 
+#properties span {
+	color: #999;
+}
+
 #rating {
-	float: left;
-	border-left: 0.5px solid #555;
+	position: absolute;
+	left: 300px;
 	padding-left: 20px;
-	margin-left: 20px;
+	margin-left: 36px;
 }
 
 #rating p {

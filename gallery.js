@@ -167,19 +167,28 @@ function getItemPage(link, index, callback) {
 
                 link.title = title;
                 link.img = $("#mainpic img").attr("src");
-                link.info = {};
+                link.info = {
+                    "类型": []
+                };
 
                 $("span", "#info").each(function () {
                     let tc = $(this).attr("class");
-                    if (tc === undefined || tc === 'actor') {
+                    let tp = $(this).attr("property");
+
+                    if (tp === 'v:genre') {
+                        link.info["类型"].push($(this).text());
+                    } else if (tp === 'v:runtime') {
+                        link.info["片长"] = $(this).text();
+                    } else if (tc === undefined || tc === 'actor') {
                         let key = $(".pl", this).text();
                         let value = $(".attrs", this).text();
                         if (key === '' || value === '')
                             return;
 
                         link.info[key] = value;
-                    } else {
-
+                    } else if (tc === 'pl' && $(this).text() === '制片国家/地区:') {
+                        console.log($(this).next());
+                        link.info["制片国家/地区"] = $(this).next().text();
                     }
                 });
 
