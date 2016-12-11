@@ -102,42 +102,26 @@ function parseLinks(next) {
     let links = [],
         titles = [],
         meta = {};
-    let totalCountCurPage = $('li.list-item', '#nowplaying').length;
 
     $('li.list-item', '#nowplaying').each(link_movie_handler);
 
     function link_movie_handler() {
-        let title = $(this).attr('data-title');
-        let image = $('img', this).attr('src');
-
-        titles.push(title);
+        titles.push($(this).attr('data-title'));
         links.push({
-            title: title,
-            score: $(this).attr('data-score'),
-            region: $(this).attr('data-region'),
-            director: $(this).attr('data-director'),
-            actors: $(this).attr('data-actors'),
-            img: image
+            subject: $(this).attr('data-subject')
         });
     }
 
     meta.time = new Date().toLocaleDateString();
     meta.movies = links
 
-    let metaFilePath = path.join(output, 'meta.json');
-    fs.writeFile(metaFilePath, JSON.stringify(meta),
-        function (err) {
-            if (err) {
-                throw err;
-            }
-            console.log('正处理以下影片...\n'.green + titles.join('\r\n').yellow);
-            next(null, links);
-        });
+    console.log('开始处理以下影片...\n'.green + titles.join('\r\n').yellow);
+    next(null, meta);
 }
 
-function getItems(links, next) {
+function getItems(meta, next) {
     async.forEachOfLimit(
-        links,
+        meta.movies,
         parallel,
         getItemPage,
         function (err) {
@@ -147,12 +131,66 @@ function getItems(links, next) {
                 }
                 throw err;
             }
-            // 暂未做任何处理
-            console.log('===== 处理完毕 ====='.green);
-            return next();
+
+            let metaFilePath = path.join(output, 'meta.json');
+            fs.writeFile(metaFilePath, JSON.stringify(meta),
+                function (err) {
+                    if (err) {
+                        throw err;
+                    }
+                    console.log('===== 处理完毕 ====='.green);
+                    return next();
+                });
         });
 }
 
 function getItemPage(link, index, callback) {
-    return callback();
+    let url = 'https://movie.douban.com/subject/' + link.subject;
+    console.log('正在处理影片：' + url);
+    let retryCount = 1;
+    async.retry(3,
+        function () {
+            request.get(url, function (err, res, body) {
+                if (err) {
+                    if (err.status === 404) {
+                        console.error('影片抓取结束, StatusCode:', err.status);
+                    } else {
+                        retryCount++;
+                        console.error('页面获取失败：%s'.red, err.message);
+                        console.error('...进行第%d次尝试...'.red, retryCount);
+                    }
+                    return callback(err);
+                }
+
+                let $ = cheerio.load(body);
+                let title = $("h1 span").first().text();
+
+                link.title = title;
+                link.img = $("#mainpic img").attr("src");
+                link.info = {};
+
+                $("span", "#info").each(function () {
+                    let tc = $(this).attr("class");
+                    if (tc === undefined || tc === 'actor') {
+                        let key = $(".pl", this).text();
+                        let value = $(".attrs", this).text();
+                        if (key === '' || value === '')
+                            return;
+
+                        link.info[key] = value;
+                    } else {
+
+                    }
+                });
+
+                console.log(('完成 | ' + title).green);
+                return callback();
+            });
+        },
+        function (err, res) {
+            if (err) {
+                console.error('页面获取失败：%s'.red, err.message);
+            }
+            return callback();
+        });
 }
