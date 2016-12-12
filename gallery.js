@@ -171,26 +171,23 @@ function getItemPage(link, index, callback) {
                     "类型": []
                 };
 
-                $("span", "#info").each(function () {
-                    let tc = $(this).attr("class");
-                    let tp = $(this).attr("property");
+                let infos = $('#info').text().split('\n');
+                infos.forEach(function (element) {
+                    let content = element.trim();
+                    let key = content.split(':')[0];
+                    let value = content.split(':')[1];
 
-                    if (tp === 'v:genre') {
-                        link.info["类型"].push($(this).text());
-                    } else if (tp === 'v:runtime') {
-                        link.info["片长"] = $(this).text();
-                    } else if (tc === undefined || tc === 'actor') {
-                        let key = $(".pl", this).text();
-                        let value = $(".attrs", this).text();
-                        if (key === '' || value === '')
-                            return;
-
-                        link.info[key] = value;
-                    } else if (tc === 'pl' && $(this).text() === '制片国家/地区:') {
-                        console.log($(this).next());
-                        link.info["制片国家/地区"] = $(this).next().text();
+                    if (key === undefined || value === undefined) {
+                        return;
                     }
-                });
+
+                    value = value.replace(' ', '');
+                    if (value.indexOf('/') !== -1) {
+                        link.info[key] = value.split('/');
+                    } else {
+                        link.info[key] = value;
+                    }
+                }, this);
 
                 console.log(('完成 | ' + title).green);
                 return callback();

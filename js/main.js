@@ -173,8 +173,12 @@
     $("#director").text(movie.info["导演"]);
     $("#writer").text(movie.info["编剧"]);
     $("#actors").text(movie.info["主演"]);
-    $("#genre").text(movie.info["类型"].join(' / '));
+    if (typeof (movie.info["类型"]) === Array)
+      $("#genre").text(movie.info["类型"].join('/'));
+    else
+      $("#genre").text(movie.info["类型"]);
     $("#country").text(movie.info["制片国家/地区"]);
+    $("#language").text(movie.info["语言"]);
     $("#runtime").text(movie.info["片长"]);
   }
 })();
