@@ -153,7 +153,7 @@ small {
 	background: #555;
 }
 
-#properties {
+#infos {
 	position: absolute;
 	width: 300px;
 	margin: 0 0 0 24px;
@@ -161,18 +161,22 @@ small {
 	top: 64px;
 	bottom: 0;
 	font-size: 11pt;
-	color: #ccc;
+	color: #aaa;
 	OVERFLOW-X: hidden;
 	OVERFLOW-Y: scroll;
 }
 
-#properties p {
+#infos p {
 	margin: 5px 0;
 	text-align: left;
 }
 
-#properties span {
-	color: #999;
+#infos span {
+	color: #bbb;
+}
+
+#infos span>span {
+	color: #aa9;
 }
 
 #rating {
