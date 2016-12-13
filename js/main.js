@@ -170,15 +170,44 @@
 
   function setInfo(movie) {
     $("#title").text(movie.title);
-    $("#director").text(movie.info["导演"]);
-    $("#writer").text(movie.info["编剧"]);
-    $("#actors").text(movie.info["主演"]);
-    if (typeof (movie.info["类型"]) === Array)
-      $("#genre").text(movie.info["类型"].join('/'));
+
+    if (isArray(movie.info["导演"]))
+      $("#director").html('<span>' + movie.info["导演"].join('</span> / <span>') + '</span>');
     else
-      $("#genre").text(movie.info["类型"]);
-    $("#country").text(movie.info["制片国家/地区"]);
-    $("#language").text(movie.info["语言"]);
-    $("#runtime").text(movie.info["片长"]);
+      $("#director").html('<span>' + movie.info["导演"] + '</span>');
+
+    if (isArray(movie.info["编剧"]))
+      $("#writer").html('<span>' + movie.info["编剧"].join('</span> / <span>') + '</span>');
+    else
+      $("#writer").html('<span>' + movie.info["编剧"] + '</span>');
+
+    if (isArray(movie.info["主演"]))
+      $("#actors").html('<span>' + movie.info["主演"].join('</span> / <span>') + '</span>');
+    else
+      $("#actors").html('<span>' + movie.info["主演"] + '</span>');
+
+    if (isArray(movie.info["类型"]))
+      $("#genre").html('<span>' + movie.info["类型"].join('</span> / <span>') + '</span>');
+    else
+      $("#genre").html('<span>' + movie.info["类型"] + '</span>');
+
+    if (isArray(movie.info["制片国家/地区"]))
+      $("#country").html('<span>' + movie.info["制片国家/地区"].join('</span> / <span>') + '</span>');
+    else
+      $("#country").html('<span>' + movie.info["制片国家/地区"] + '</span>');
+
+    if (isArray(movie.info["语言"]))
+      $("#language").html('<span>' + movie.info["语言"].join('</span> / <span>') + '</span>');
+    else
+      $("#language").html('<span>' + movie.info["语言"] + '</span>');
+
+    if (isArray(movie.info["片长"]))
+      $("#runtime").html('<span>' + movie.info["片长"].join('</span> / <span>') + '</span>');
+    else
+      $("#runtime").html('<span>' + movie.info["片长"] + '</span>');
+  }
+
+  function isArray(obj) {
+    return Object.prototype.toString.call(obj) === '[object Array]'
   }
 })();
