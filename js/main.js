@@ -160,6 +160,7 @@
     });
 
     setInfo(movies[index]);
+    setScore(movies[index]);
   }
 
   function animate() {
@@ -205,6 +206,26 @@
       $("#runtime").html('<span>' + movie.info["片长"].join('</span> / <span>') + '</span>');
     else
       $("#runtime").html('<span>' + movie.info["片长"] + '</span>');
+  }
+
+  function setScore(movie) {
+    $("#ratingnum").text(movie.score);
+
+    $(".stars").each(function () {
+      // Get the value
+      let rating = parseFloat(movie.score) / 2;
+      let numStars = 5;
+
+      let fullStar = new Array(Math.floor(rating + 1)).join('<i class="fa fa-star"></i>');
+
+      let halfStar = ((rating % 1) !== 0) ? '<i class="fa fa-star-half-empty"></i>' : '';
+
+      let noStar = new Array(Math.floor(numStars + 1 - rating)).join('<i class="fa fa-star-o"></i>');
+
+      $(this).html(fullStar + halfStar + noStar);
+    });
+
+    $("#ratingsum").text(movie.ratingsum);
   }
 
   function isArray(obj) {

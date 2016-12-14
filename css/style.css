@@ -187,5 +187,23 @@ small {
 }
 
 #rating p {
+	color: #aaa;
+	font-size: 13pt;
 	margin: 5px 0;
+	text-align: left;
+}
+
+#ratingnum {
+	color: #fff;
+	font-size: 30pt;
+}
+
+#rating span>span {
+	display: block;
+	font-size: 13pt;
+	text-align: left;
+}
+
+.stars {
+	color: darkorange;
 }

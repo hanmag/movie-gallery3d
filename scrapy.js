@@ -167,9 +167,9 @@ function getItemPage(link, index, callback) {
 
                 link.title = title;
                 link.img = $("#mainpic img").attr("src");
-                link.info = {
-                    "类型": []
-                };
+                link.score = $(".ll.rating_num").text();
+                link.ratingsum = $(".rating_people").text();
+                link.info = {};
 
                 let infos = $('#info').text().split('\n');
                 infos.forEach(function (element) {
