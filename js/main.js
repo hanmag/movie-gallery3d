@@ -209,11 +209,11 @@
   }
 
   function setScore(movie) {
-    $("#ratingnum").text(movie.score);
+    $("#ratingnum").text((movie.score === '') ? '尚未上映' : movie.score);
 
     $(".stars").each(function () {
       // Get the value
-      let rating = parseFloat(movie.score) / 2;
+      let rating = (movie.score === '') ? 0 : parseFloat(movie.score) / 2;
       let numStars = 5;
 
       let fullStar = new Array(Math.floor(rating + 1)).join('<i class="fa fa-star"></i>');
@@ -226,6 +226,23 @@
     });
 
     $("#ratingsum").text(movie.ratingsum);
+
+    if (movie.ratings.length === 0) {
+      $("#starswrap").css("visibility", "hidden");
+      return;
+    } else {
+      $("#starswrap").css("visibility", "visible");
+    }
+
+    let index = 0;
+    $('.rating_per').each(function () {
+      $(this).text(movie.ratings[index++]);
+    });
+
+    index = 0;
+    $('.power').each(function () {
+      $(this).css('width', (Math.floor(parseFloat(movie.ratings[index++].replace("%", "")) * 1.5) + 2) + "px");
+    });
   }
 
   function isArray(obj) {

@@ -189,6 +189,11 @@ function getItemPage(link, index, callback) {
                     }
                 }, this);
 
+                link.ratings = [];
+                $('.rating_per').each(function () {
+                    link.ratings.push($(this).text());
+                });
+
                 console.log(('完成 | ' + title).green);
                 return callback();
             });

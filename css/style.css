@@ -171,10 +171,6 @@ small {
 	text-align: left;
 }
 
-#infos span {
-	color: #bbb;
-}
-
 #infos span>span {
 	color: #aa9;
 }
@@ -194,16 +190,42 @@ small {
 }
 
 #ratingnum {
-	color: #fff;
-	font-size: 30pt;
+	color: #eee;
+	font-size: 28pt;
+	float: left;
+}
+
+#rating span {
+	float: left;
 }
 
 #rating span>span {
+	margin-left: 20px;
+	margin-top: 2px;
+	float: none;
 	display: block;
-	font-size: 13pt;
+	font-size: 12pt;
 	text-align: left;
 }
 
 .stars {
 	color: darkorange;
+}
+
+#starswrap {
+	margin-top: 55px;
+	line-height: 18px;
+}
+
+.power {
+	background-color: orange;
+	height: 12px;
+	margin: 3px 8px 0 8px;
+}
+
+.rating_per,
+.starstop {
+	font-size: 10pt;
+	color: #aaa;
+	float: none;
 }
