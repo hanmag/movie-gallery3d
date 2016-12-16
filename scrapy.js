@@ -53,7 +53,7 @@ pageExist(function (err, res) {
     }
 
     async.waterfall(
-        [parseLinks, getItems],
+        [parseLinks, getItems, getComments],
         function (err) {
             if (err) {
                 console.log('抓取过程终止：%s', err.message);
@@ -101,6 +101,7 @@ function parseLinks(next) {
     let $ = cheerio.load(currentPageHtml);
     let links = [],
         titles = [],
+        comments = {},
         meta = {};
 
     $('li.list-item', '#nowplaying').each(link_movie_handler);
@@ -110,10 +111,15 @@ function parseLinks(next) {
         links.push({
             subject: $(this).attr('data-subject')
         });
+        comments[$(this).attr('data-subject')] = {
+            subject: $(this).attr('data-subject'),
+            comments: []
+        };
     }
 
     meta.time = new Date().toLocaleDateString();
-    meta.movies = links
+    meta.movies = links;
+    meta.comments = comments;
 
     console.log('开始处理以下影片...\n'.green + titles.join('\r\n').yellow);
     next(null, meta);
@@ -132,15 +138,16 @@ function getItems(meta, next) {
                 throw err;
             }
 
-            let metaFilePath = path.join(output, 'meta.json');
+            let metaFilePath = path.join(output, 'items.json');
             fs.writeFile(metaFilePath, JSON.stringify(meta),
                 function (err) {
                     if (err) {
                         throw err;
                     }
-                    console.log('===== 处理完毕 ====='.green);
-                    return next();
+                    console.log('===== 影片信息处理完毕 ====='.green);
                 });
+
+            return next(null, meta);
         });
 }
 
@@ -192,6 +199,69 @@ function getItemPage(link, index, callback) {
                 link.ratings = [];
                 $('.rating_per').each(function () {
                     link.ratings.push($(this).text());
+                });
+
+                console.log(('完成 | ' + title).green);
+                return callback();
+            });
+        },
+        function (err, res) {
+            if (err) {
+                console.error('页面获取失败：%s'.red, err.message);
+            }
+            return callback();
+        });
+}
+
+function getComments(meta, next) {
+    async.forEachOfLimit(
+        meta.comments,
+        parallel,
+        getCommentsPage,
+        function (err) {
+            if (err) {
+                if (err.message === 'limit') {
+                    return next();
+                }
+                throw err;
+            }
+
+            let metaFilePath = path.join(output, 'comments.json');
+            fs.writeFile(metaFilePath, JSON.stringify(meta.comments),
+                function (err) {
+                    if (err) {
+                        throw err;
+                    }
+                    console.log('===== 影评处理完毕 ====='.green);
+                    return next();
+                });
+        });
+}
+
+function getCommentsPage(link, index, callback) {
+    let url = 'https://movie.douban.com/subject/' + link.subject + '/comments?sort=new_score&status=P';
+    console.log('正在处理影评：' + url);
+    let retryCount = 1;
+    async.retry(3,
+        function () {
+            request.get(url, function (err, res, body) {
+                if (err) {
+                    if (err.status === 404) {
+                        console.error('影评抓取结束, StatusCode:', err.status);
+                    } else {
+                        retryCount++;
+                        console.error('影评页面获取失败：%s'.red, err.message);
+                        console.error('...进行第%d次尝试...'.red, retryCount);
+                    }
+                    return callback(err);
+                }
+
+                let $ = cheerio.load(body);
+                let title = $("#content h1").first().text();
+
+                link.title = title;
+                $('p', '.comment-item').each(function() {
+                    link.comments.push($(this).text().replace('\n','').trim());
                 });
 
                 console.log(('完成 | ' + title).green);
