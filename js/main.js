@@ -21,7 +21,7 @@
   $.ajaxSetup({
     cache: false
   });
-  $.getJSON("movies/meta.json", function (data) {
+  $.getJSON("movies/items.json", function (data) {
     container.innerHTML = "";
 
     movies = data.movies;
