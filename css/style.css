@@ -136,6 +136,14 @@ small {
 	color: #ddd;
 }
 
+#title a{
+	font-size: 16pt;
+	margin-left: 10px;
+	color: #667;
+	text-shadow: 0 0 5px #000;
+	cursor: pointer;
+}
+
 ::-webkit-scrollbar {
 	width: 0.5px;
 }
@@ -159,7 +167,7 @@ small {
 	margin: 0 0 0 24px;
 	padding-right: 12px;
 	top: 64px;
-	bottom: 0;
+	bottom: 5px;
 	font-size: 11pt;
 	color: #aaa;
 	OVERFLOW-X: hidden;
@@ -228,4 +236,37 @@ small {
 	font-size: 10pt;
 	color: #aaa;
 	float: none;
+}
+
+#comments {
+	position: absolute;
+	left: 560px;
+	right: 20px;
+	top: 20px;
+	bottom: 5px;
+	color: #aaa;
+}
+
+#comments p {
+	font-size: 13pt;
+	padding: 0 5px 10px 0;
+	text-align: right;
+	border-bottom: 0.5px solid #555;
+}
+
+#comments-content {
+	width: 100%;
+	height: calc(100% - 70px);
+	OVERFLOW-X: hidden;
+	OVERFLOW-Y: scroll;
+}
+
+#comments-content p {
+	color: #aa9;
+	margin: 0 5px 10px 2px;
+	padding: 0 0 8px 2px;
+	text-align: left;
+	line-height: 20px;
+	font-size: 10pt;
+	border-bottom: 0.5px dashed #444;
 }
