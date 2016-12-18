@@ -218,6 +218,8 @@
       $("#runtime").html('<span>' + movie.info["片长"] + '</span>');
 
     $("#infos").scrollTop(0);
+
+    $("#summary").html(movie.summary);
   }
 
   function setScore(movie) {
@@ -270,10 +272,10 @@
   }
 
   function htmlComments(movie) {
-    $("#comments-content").html(comments[movie.subject].comments.map(function (data) {
+    $("#comments").html(comments[movie.subject].comments.map(function (data) {
       return '<p>' + data + '</p>';
     }).join(''));
-    $("#comments-content").scrollTop(0);
+    $("#comments").scrollTop(0);
   }
 
   function isArray(obj) {
