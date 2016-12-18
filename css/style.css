@@ -130,10 +130,12 @@ small {
 }
 
 #title {
+	position: absolute;
 	text-align: left;
 	margin: 20px 20px 10px 20px;
 	font-size: 24pt;
 	color: #ddd;
+	z-index: 100;
 }
 
 #title a{
@@ -186,6 +188,7 @@ small {
 #rating {
 	position: absolute;
 	left: 300px;
+	top: 60px;
 	padding-left: 20px;
 	margin-left: 36px;
 }
@@ -245,6 +248,7 @@ small {
 	top: 20px;
 	bottom: 5px;
 	color: #aaa;
+	z-index: 10;
 }
 
 #comments p {
