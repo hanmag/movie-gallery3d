@@ -259,7 +259,7 @@ function getCommentsPage(link, index, callback) {
                 let $ = cheerio.load(body);
                 let title = $("#content h1").first().text();
 
-                link.title = title;
+                // link.title = title;
                 $('p', '.comment-item').each(function() {
                     link.comments.push($(this).text().replace('\n','').trim());
                 });
