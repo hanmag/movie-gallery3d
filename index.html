@@ -8,6 +8,7 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<link href="css/style.css" rel="stylesheet">
 	<link href="css/font-awesome.min.css" rel="stylesheet">
+	<link href="css/jquery-ui.min.css" rel="stylesheet">
 </head>
 
 <body>
@@ -32,7 +33,7 @@
 				<strong id="ratingnum"></strong>
 				<span id="starsscore">
 					<span class="stars"></span>
-					<span id="ratingsum"></span>
+				<span id="ratingsum"></span>
 				</span>
 			</div>
 			<div id="starswrap">
@@ -68,9 +69,15 @@
 				<br/>
 			</div>
 		</aside>
-		<article id="comments">
-			<p>豆瓣热门短评</p>
-			<section id="comments-content"></section>
+		<article id="moreinfos">
+			<div>
+				<div id="radio">
+					<input type="radio" id="radio1" name="radio"><label for="radio1">剧情简介</label>
+					<input type="radio" id="radio2" name="radio" checked="checked"><label for="radio2">热门短评</label>
+				</div>
+			</div>
+			<section id="comments"></section>
+			<section id="summary" style="visibility: hidden"></section>
 		</article>
 	</article>
 	<a href="https://github.com/hanmag/movie-gallery3d">
@@ -78,10 +85,29 @@
 	</a>
 	<script src="js/lib/Detector.js"></script>
 	<script src="js/lib/jquery.min.js"></script>
+	<script src="js/lib/jquery-ui.min.js"></script>
 	<script src="js/lib/three.min.js"></script>
 	<script src="js/lib/CSS3DRenderer.js"></script>
 	<script src="js/lib/tween.min.js"></script>
 	<script src="js/main.js"></script>
+	<script>
+		$(function () {
+			$("input").checkboxradio({
+				icon: false
+			});
+			$("#radio").buttonset();
+
+			$("#radio1").click(function () {
+				$("#comments").css("visibility", "hidden");
+				$("#summary").css("visibility", "visible");
+			});
+
+			$("#radio2").click(function () {
+				$("#comments").css("visibility", "visible");
+				$("#summary").css("visibility", "hidden");
+			});
+		});
+	</script>
 </body>
 
 </html>
