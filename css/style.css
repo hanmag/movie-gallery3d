@@ -138,7 +138,7 @@ small {
 	z-index: 100;
 }
 
-#title a{
+#title a {
 	font-size: 16pt;
 	margin-left: 10px;
 	color: #667;
@@ -241,7 +241,7 @@ small {
 	float: none;
 }
 
-#comments {
+#moreinfos {
 	position: absolute;
 	left: 560px;
 	right: 20px;
@@ -251,25 +251,32 @@ small {
 	z-index: 10;
 }
 
-#comments p {
-	font-size: 13pt;
+#moreinfos>div {
+	width: 100%;
+	font-size: 11pt;
 	padding: 0 5px 10px 0;
 	text-align: right;
 	border-bottom: 0.5px solid #555;
 }
 
-#comments-content {
+#comments,
+#summary {
+	position: absolute;
+	top: 50px;
+	bottom: 5px;
 	width: 100%;
-	height: calc(100% - 70px);
 	OVERFLOW-X: hidden;
 	OVERFLOW-Y: scroll;
+
+	color: #aa9;
+	font-size: 12pt;
+	text-align: left;
+	line-height: 25px;
 }
 
-#comments-content p {
-	color: #aa9;
+#comments p {
 	margin: 0 5px 10px 2px;
 	padding: 0 0 8px 2px;
-	text-align: left;
 	line-height: 20px;
 	font-size: 10pt;
 	border-bottom: 0.5px dashed #444;
