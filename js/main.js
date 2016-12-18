@@ -5,7 +5,8 @@
 
   var objects = [],
     targets = [],
-    movies = [];
+    movies = [],
+    comments = {};
 
   var camera, scene = new THREE.Scene(),
     renderer = new THREE.CSS3DRenderer(),
@@ -21,6 +22,11 @@
   $.ajaxSetup({
     cache: false
   });
+
+  $.getJSON("movies/comments.json", function (data) {
+    comments = data;
+  });
+
   $.getJSON("movies/items.json", function (data) {
     container.innerHTML = "";
 
@@ -161,6 +167,7 @@
 
     setInfo(movies[index]);
     setScore(movies[index]);
+    setComments(movies[index]);
   }
 
   function animate() {
@@ -170,7 +177,10 @@
   }
 
   function setInfo(movie) {
-    $("#title").text(movie.title);
+    $("#title").html(movie.title +
+      '<a title="访问豆瓣网页" target="_blank" href="https://movie.douban.com/subject/' +
+      movie.subject +
+      '"><i class="fa fa-external-link" aria-hidden="true"></i></a>');
 
     if (isArray(movie.info["导演"]))
       $("#director").html('<span>' + movie.info["导演"].join('</span> / <span>') + '</span>');
@@ -206,6 +216,8 @@
       $("#runtime").html('<span>' + movie.info["片长"].join('</span> / <span>') + '</span>');
     else
       $("#runtime").html('<span>' + movie.info["片长"] + '</span>');
+
+    $("#infos").scrollTop(0);
   }
 
   function setScore(movie) {
@@ -229,9 +241,11 @@
 
     if (movie.ratings.length === 0) {
       $("#starswrap").css("visibility", "hidden");
+      $("#starsscore").css("visibility", "hidden");
       return;
     } else {
       $("#starswrap").css("visibility", "visible");
+      $("#starsscore").css("visibility", "visible");
     }
 
     let index = 0;
@@ -245,7 +259,24 @@
     });
   }
 
+  function setComments(movie) {
+    if (comments[movie.subject] === undefined) {
+      setTimeout(function () {
+        setComments(movie);
+      }, 1000);
+    } else {
+      htmlComments(movie);
+    }
+  }
+
+  function htmlComments(movie) {
+    $("#comments-content").html(comments[movie.subject].comments.map(function (data) {
+      return '<p>' + data + '</p>';
+    }).join(''));
+    $("#comments-content").scrollTop(0);
+  }
+
   function isArray(obj) {
-    return Object.prototype.toString.call(obj) === '[object Array]'
+    return Object.prototype.toString.call(obj) === '[object Array]';
   }
 })();
