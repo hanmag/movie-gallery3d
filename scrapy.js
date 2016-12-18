@@ -173,6 +173,7 @@ function getItemPage(link, index, callback) {
                 let title = $("h1 span").first().text();
 
                 link.title = title;
+                link.summary = $("#link-report").first("span").text().replace(/\n/g, '').replace(/ /g, '').replace(/　　/g, '<br>　　').replace('<br>', '');
                 link.img = $("#mainpic img").attr("src");
                 link.score = $(".ll.rating_num").text();
                 link.ratingsum = $(".rating_people").text();
@@ -188,7 +189,7 @@ function getItemPage(link, index, callback) {
                         return;
                     }
 
-                    value = value.replace(' ', '');
+                    value = value.replace('/ /g', '');
                     if (value.indexOf('/') !== -1) {
                         link.info[key] = value.split('/');
                     } else {
@@ -260,8 +261,8 @@ function getCommentsPage(link, index, callback) {
                 let title = $("#content h1").first().text();
 
                 // link.title = title;
-                $('p', '.comment-item').each(function() {
-                    link.comments.push($(this).text().replace('\n','').trim());
+                $('p', '.comment-item').each(function () {
+                    link.comments.push($(this).text().replace('\n', '').trim());
                 });
 
                 console.log(('完成 | ' + title).green);
