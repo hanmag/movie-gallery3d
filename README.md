@@ -4,7 +4,7 @@
 
 [Live Demo](https://hanmag.github.io/movie-gallery3d/)
 
-![movie-gallery3d-screenshot.PNG](https://ooo.0o0.ooo/2016/12/19/5857d960b47b6.png)
+![mg3d.png](https://ooo.0o0.ooo/2016/12/19/5857dc867b8c2.png)
 
 ### 环境要求 ###
 
