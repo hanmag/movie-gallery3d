@@ -1,6 +1,6 @@
 {
     "name": "movie-gallery3d",
-    "version": "0.0.2",
+    "version": "0.1.0",
     "description": "",
     "main": "gallery.js",
     "repository": {
