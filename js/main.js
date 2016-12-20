@@ -1,8 +1,5 @@
 (function () {
-  if (!Detector.webgl) {
-    Detector.addGetWebGLMessage();
-  }
-
+  
   var objects = [],
     targets = [],
     movies = [],
