@@ -224,14 +224,14 @@
 
     $(".stars").each(function () {
       // Get the value
-      let rating = (movie.score === '') ? 0 : parseFloat(movie.score) / 2;
-      let numStars = 5;
+      var rating = (movie.score === '') ? 0 : parseFloat(movie.score) / 2;
+      var numStars = 5;
 
-      let fullStar = new Array(Math.floor(rating + 1)).join('<i class="fa fa-star"></i>');
+      var fullStar = new Array(Math.floor(rating + 1)).join('<i class="fa fa-star"></i>');
 
-      let halfStar = ((rating % 1) !== 0) ? '<i class="fa fa-star-half-empty"></i>' : '';
+      var halfStar = ((rating % 1) !== 0) ? '<i class="fa fa-star-half-empty"></i>' : '';
 
-      let noStar = new Array(Math.floor(numStars + 1 - rating)).join('<i class="fa fa-star-o"></i>');
+      var noStar = new Array(Math.floor(numStars + 1 - rating)).join('<i class="fa fa-star-o"></i>');
 
       $(this).html(fullStar + halfStar + noStar);
     });
@@ -247,7 +247,7 @@
       $("#starsscore").css("visibility", "visible");
     }
 
-    let index = 0;
+    var index = 0;
     $('.rating_per').each(function () {
       $(this).text(movie.ratings[index++]);
     });
