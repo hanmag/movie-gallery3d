@@ -23,10 +23,5 @@ $ node scrapy.js # 运行程序
 打开浏览器访问：http://localhost:3000/
 ```
 
-### 鸣谢 ###
-
-* [jav-scrapy](https://github.com/raawaa/jav-scrapy) : 一个可以爬取 AV 磁力链接或影片封面的小爬虫。
-* [node-static-webserver](https://github.com/r1000ru/node-static-webserver) : Web server for virtual hosts and static content.
-
 ---------------
 仅供娱乐，欢迎加入一起完善！
