@@ -109,14 +109,24 @@ small {
 .element:hover {
 	box-shadow: 0px 0px 12px rgba(0, 255, 255, 0.75);
 	border: 2px solid rgba(127, 255, 255, 0.75);
+	background-color: rgba(127, 255, 255, 0.45);
 }
 
-.element img {
-	margin: 4px 0 0 0;
+.element .img {
+	margin: 4px 0 0 4px;
 	padding: 0;
 	width: 95%;
 	height: 95%;
 	opacity: 0.9;
+}
+
+.element .img iframe {
+	width: 100%;
+	height: 100%;
+}
+
+.element:hover .img iframe {
+	display: none;
 }
 
 #detail {
@@ -267,7 +277,6 @@ small {
 	width: 100%;
 	OVERFLOW-X: hidden;
 	OVERFLOW-Y: scroll;
-
 	color: #aa9;
 	font-size: 12pt;
 	text-align: left;

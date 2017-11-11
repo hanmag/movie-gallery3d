@@ -48,7 +48,7 @@
 
   function initScene() {
     camera = new THREE.PerspectiveCamera(40, container.offsetWidth / container.offsetHeight, 1, 10000);
-    camera.position.z = 1800;
+    camera.position.z = 2200;
 
     updateSize();
     window.addEventListener('resize', updateSize, false);
@@ -62,9 +62,13 @@
       element.className = 'element';
       element.id = 'el' + i;
 
-      var img = document.createElement('img');
-      img.src = movies[i].img;
+      var img = document.createElement('div');
+      img.className = 'img';
+      img.innerHTML = ReferrerKiller.imageHtml(movies[i].img);
       element.appendChild(img);
+      var mask = document.createElement('div');
+      mask.className = 'mask';
+      element.appendChild(mask);
       element.addEventListener('click', function (event) {
         if (tweenCount !== 0) return;
 
@@ -128,9 +132,9 @@
       var phi = i === 0 ? 0 : (2 * (i + 0.25) * Math.PI) / (l + 0.5);
 
       var object = new THREE.Object3D();
-      object.position.x = 700 * Math.sin(phi);
+      object.position.x = 1400 * Math.sin(phi);
       object.position.y = i === 0 ? -15 : -30;
-      object.position.z = 700 * Math.cos(phi);
+      object.position.z = 1500 * Math.cos(phi);
 
       vector.x = object.position.x * 2;
       vector.y = object.position.y;
